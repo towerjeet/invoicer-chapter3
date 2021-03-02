@@ -98,7 +98,7 @@ func main() {
 	  log.Fatal(http.ListenAndServe(":8080",
 		HandleMiddlewares(
 			r,
-			addRequestID(),
+			//addRequestID(),
 			logRequest(),
 			setResponseHeaders(),
 		),
