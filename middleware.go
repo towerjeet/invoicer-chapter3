@@ -52,7 +52,8 @@ func setResponseHeaders() Middleware {
 		})
 	}
 }
-
+/* These will be set in chapter 3
+*
 func addRequestID() Middleware {
 	return func(h http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -61,6 +62,8 @@ func addRequestID() Middleware {
 		})
 	}
 }
+			*/
+
 
 //  Run the request through all middlewares
 func HandleMiddlewares(h http.Handler, adapters ...Middleware) http.Handler {
