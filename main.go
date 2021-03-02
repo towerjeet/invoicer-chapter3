@@ -94,7 +94,8 @@ func main() {
 	).Methods("GET")
 
 	// all set, start the http handler
-	//log.Fatal(http.ListenAndServe(":8080", r))
+	log.Fatal(http.ListenAndServe(":8080", r))
+	/*
 	  log.Fatal(http.ListenAndServe(":8080",
 		HandleMiddlewares(
 			r,
@@ -103,6 +104,7 @@ func main() {
 			setResponseHeaders(),
 		),
 	))
+	*/
 }
 
 type Invoice struct {
@@ -215,8 +217,8 @@ func (iv *invoicer) deleteInvoice(w http.ResponseWriter, r *http.Request) {
 }
 
 func (iv *invoicer) getIndex(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("Content-Security-Policy", "default-src 'self'; child-src 'self;")
 	w.Header().Add("X-Frame-Options", "SAMEORIGIN")
+	w.Header().Add("Content-Security-Policy", "default-src 'self'; child-src 'self;")
 	w.Write([]byte(`
 <!DOCTYPE html>
 <html>
