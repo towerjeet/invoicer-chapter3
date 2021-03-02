@@ -94,7 +94,15 @@ func main() {
 	).Methods("GET")
 
 	// all set, start the http handler
-	log.Fatal(http.ListenAndServe(":8080", r))
+	//log.Fatal(http.ListenAndServe(":8080", r))
+	  log.Fatal(http.ListenAndServe(":8080",
+		HandleMiddlewares(
+			r,
+			addRequestID(),
+			logRequest(),
+			setResponseHeaders(),
+		),
+	))
 }
 
 type Invoice struct {
