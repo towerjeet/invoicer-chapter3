@@ -58,7 +58,15 @@ jobs:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
                 docker login -u ${DOCKER_USER} -p ${DOCKER_PASS};
-                echo ${DOCKER_USER}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_TAG};
+            DOCKER_TAG="tag-missing"
+            if [ -z "$CIRCLE_TAG" ]; then
+                echo "Taking tag from CIRCLE_BRANCH: ${CIRCLE_BRANCH}"
+                DOCKER_TAG="${CIRCLE_BRANCH}"
+            else
+                echo "Taking tag from CIRCLE_TAG: ${CIRCLE_TAG}"
+                DOCKER_TAG="${CIRCLE_TAG}"
+            fi
+                echo ${DOCKER_USER}/${CIRCLE_PROJECT_REPONAME}:${DOCKER_TAG};
                 go install --ldflags '-extldflags "-static"' github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME};
                 [ ! -e bin ] && mkdir bin;
                 cp "$GOPATH_HEAD/bin/${CIRCLE_PROJECT_REPONAME}" bin/invoicer;
